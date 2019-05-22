@@ -70,15 +70,15 @@ if (@$_POST['submit'])
               <form class="user" method="post" action="register.php">
                 <div class="form-group row">
                   <div class="col-sm-12 mb-3 mb-sm-0">
-                    <input type="text" class="form-control form-control-user" name="user_fullname" placeholder="Full Name">
+                    <input type="text" class="form-control form-control-user" name="user_fullname" placeholder="Full Name" required>
                   </div>
                 </div>
                 <div class="form-group">
-                  <input type="email" class="form-control form-control-user" name="user_email" placeholder="Email Address">
+                  <input type="email" class="form-control form-control-user" name="user_email" placeholder="Email Address" required>
                 </div>
                 <div class="form-group row">
                   <div class="col-sm-12 mb-3 mb-sm-0">
-                    <input type="password" class="form-control form-control-user" name="user_password" placeholder="Password">
+                    <input type="password" class="form-control form-control-user" name="user_password" placeholder="Password" required>
                   </div>
                 </div>
                 <input type="submit" name="submit" class="btn btn-primary btn-user btn-block" value="Register Account">

@@ -37,23 +37,21 @@
               <div class="col-lg-6">
                 <div class="p-5">
                   <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-2">Forgot Your Password?</h1>
-                    <p class="mb-4">We get it, stuff happens. Just enter your email address below and we'll send you a link to reset your password!</p>
+                    <h1 class="h4 text-gray-900 mb-2">ลืมรหัสผ่าน</h1>
+                    <p class="mb-4">กรุณากรอก Email ทีใช้สมัครสมาชิก ระบบจะทำการส่ง Link Reset Password ไปให้</p>
                   </div>
-                  <form class="user">
+                  <form class="user" method="post" action="forgot-password.php">
                     <div class="form-group">
-                      <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
+                      <input type="email" class="form-control form-control-user" name="user_email" aria-describedby="emailHelp" placeholder="Enter Email Address...">
                     </div>
-                    <a href="login.html" class="btn btn-primary btn-user btn-block">
-                      Reset Password
-                    </a>
+                    <input type="submit" name="submit" class="btn btn-primary btn-user btn-block" value="Reset Password">
                   </form>
                   <hr>
                   <div class="text-center">
-                    <a class="small" href="register.php">Create an Account!</a>
+                    <a class="small" href="register.php">สมัครสมาชิกใหม่</a>
                   </div>
                   <div class="text-center">
-                    <a class="small" href="login.php">Already have an account? Login!</a>
+                    <a class="small" href="login.php">เป็นสมาชิกอยู่แล้ว ? เข้าสู่ระบบ!!</a>
                   </div>
                 </div>
               </div>
