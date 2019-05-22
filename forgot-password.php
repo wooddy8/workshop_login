@@ -1,3 +1,62 @@
+<?php
+require 'config/connect.php';
+include 'PHPMailers/PHPMailerAutoload.php';
+
+$msg = "";
+
+if (@$_POST['submit'])
+{
+
+    $data_users = array(
+        ':user_email' => $_POST['user_email'],
+    );
+    $result = $connect->prepare("SELECT user_id,user_email FROM users WHERE user_email=:user_email LIMIT 1");
+    $result->execute($data_users);
+    $users = $result->fetch();
+
+    if ($result->rowCount())
+    {
+        $base_url   = "http://" . $_SERVER['SERVER_NAME'] . dirname($_SERVER['REQUEST_URI'] . '?') . '/';
+        $reset_link = "<a href=" . $base_url . "reset_password.php?id=" . $users['user_id'] . ">Click To Reset Password</a>";
+
+        $mail = new PHPMailer;
+        $mail->isSMTP();
+        $mail->SMTPDebug   = 0; // หากต้องการแสดงผลว่ามี error อะไรให้ใส่ 1 , 2 , 3 ตามต้องการ
+        $mail->Debugoutput = 'html';
+        $mail->Host        = "smtp.gmail.com";
+        $mail->Port        = 587;
+        $mail->SMTPSecure  = 'tls';
+        $mail->SMTPAuth    = true;
+        $mail->CharSet     = "UTF-8";
+        $mail->Username    = "wooddy2531@gmail.com";
+        $mail->Password    = "pigwood8";
+
+        $mail->setFrom('wooddy2531@gmail.com', 'sarawut naimrat');
+        $mail->addAddress($_POST['user_email'], "");
+
+        $mail->Subject = "=?utf-8?B?" . base64_encode("แจ้งลิงค์เปลี่ยนรหัสผ่านเข้ากระบบ Stock") . "?=";
+        $mail->msgHTML("ท่านสามารถคลิกลิงค์ฺเปลี่ยนรหัสผ่านได้<br>" . $reset_link);
+
+        // Send email
+        if ($mail->send())
+        {
+            $msg = "<div class='alert alert-success'>ระบบส่งลิงก๋ Reset รหัสผ่านไปให้ที่อีเมล์นี้แล้ว</div>";
+
+        }
+        else
+        {
+            $msg = "<div class='alert alert-danger'>เกิดขอผิดพลาดในระบบไม่สามารถส่ง Email</div>";
+            echo 'Mailer Error: ' . $mail->ErrorInfo;
+        }
+    }
+    else
+    {
+        $msg = "<div class='alert alert-danger'>ไม่พบอีเมล์นี้ในระบบ</div>";
+    }
+
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -37,6 +96,7 @@
               <div class="col-lg-6">
                 <div class="p-5">
                   <div class="text-center">
+                  <?php echo $msg ?>
                     <h1 class="h4 text-gray-900 mb-2">ลืมรหัสผ่าน</h1>
                     <p class="mb-4">กรุณากรอก Email ทีใช้สมัครสมาชิก ระบบจะทำการส่ง Link Reset Password ไปให้</p>
                   </div>
